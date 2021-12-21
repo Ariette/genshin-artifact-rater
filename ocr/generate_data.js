@@ -99,7 +99,7 @@ for (let i = 0; i < textLength; i++) {
 }
 
 fs.writeFile(
-  pa.join(__dirname, "/trainer/gikr/", "gikr.training_text"),
+  pa.join(__dirname, "/langdata/kor/", "kor.training_text"),
   [...unicharLists].slice(0, 30).join(" ") +
     "\n" +
     texts.join(" ").replace(/\n /g, "\n"),
@@ -110,7 +110,7 @@ fs.writeFile(
   }
 );
 fs.writeFile(
-  pa.join(__dirname, "/trainer/gikr/", "gikr.wordlist"),
+  pa.join(__dirname, "/langdata/kor/", "kor.wordlist"),
   [...wordLists].join("\n"),
   "utf-8",
   (err) => {
