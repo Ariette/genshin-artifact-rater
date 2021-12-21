@@ -1,0 +1,14 @@
+{
+  "name": "genshin-artifact-rater",
+  "version": "1.0.0",
+  "description": "한글 UI용 원신 성유물 평가 라이브러리",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ariette",
+  "license": "MIT",
+  "dependencies": {
+    "genshin-db": "^3.12.3"
+  }
+}
