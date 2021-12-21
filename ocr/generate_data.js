@@ -29,7 +29,7 @@ const artifactData = {
   ],
   names: [],
 };
-const textLength = 10000;
+const textLength = 5000;
 
 // Get artifacts' names
 const artifacts = genshin.artifacts("5", { matchCategories: true }); // Filter only 5-star artifacts
@@ -76,33 +76,48 @@ Object.values(artifactData).forEach((lists) => {
 
 // Generate training digit set
 const digits = [];
-for (let i = 0; i < 20; i++) {
+for (let i = 0; i < 100; i++) {
   const value = Math.floor(Math.random() * 1000) / 10;
   const rand = Math.random() < 0.5;
   if (rand) {
     digits.push("+" + value.toFixed(1) + "%");
   } else {
-    digits.push("+" + value.toString());
+    digits.push("+" + Math.floor(value).toString());
   }
 }
-const textLists = new Set(wordLists); // Prevent contaminating word lists
-digits.forEach((str) => textLists.add(str));
 
 // Generate training text
 const texts = [];
-const lists = [...textLists];
-const length = lists.length;
+
+const constText = [].concat(
+  artifactData.types,
+  artifactData.names,
+  artifactData.stats
+);
+const constLength = constText.length;
 for (let i = 0; i < textLength; i++) {
-  const randIndex = Math.floor(Math.random() * length);
-  texts.push(lists[randIndex]);
-  if (i > 0 && i / 10 == Math.floor(i / 10)) texts.push("\n");
+  const randIndex = Math.floor(Math.random() * constLength);
+  texts.push(constText[randIndex]);
 }
+
+const statLength = artifactData.stats.length;
+const digitLength = digits.length;
+for (let i = 0; i < textLength; i++) {
+  const randStat = Math.floor(Math.random() * statLength);
+  const randValue = Math.floor(Math.random() * digitLength);
+  texts.push(artifactData.stats[randStat] + digits[randValue]);
+}
+
+texts.sort(() => Math.random() - 0.5);
+
+// 모든 char가 다 들어있는지 검증
+const saveStr = texts.join("\n");
+if ([...unicharLists].some((w) => saveStr.indexOf(w) == -1))
+  throw new Error("다시 만들어!");
 
 fs.writeFile(
   pa.join(__dirname, "/langdata/kor/", "kor.training_text"),
-  [...unicharLists].slice(0, 30).join(" ") +
-    "\n" +
-    texts.join(" ").replace(/\n /g, "\n"),
+  saveStr.replace(/\n /g, "\n"),
   "utf-8",
   (err) => {
     if (err) console.log(err);
