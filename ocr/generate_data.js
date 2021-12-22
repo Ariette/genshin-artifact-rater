@@ -29,7 +29,7 @@ const artifactData = {
   ],
   names: [],
 };
-const textLength = 5000;
+const textLength = 500;
 
 // Get artifacts' names
 const artifacts = genshin.artifacts("5", { matchCategories: true }); // Filter only 5-star artifacts
