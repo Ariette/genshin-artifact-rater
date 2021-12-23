@@ -29,7 +29,7 @@ const artifactData = {
   ],
   names: [],
 };
-const textLength = 300;
+const textLength = 50;
 
 // Get artifacts' names
 const artifacts = genshin.artifacts("5", { matchCategories: true }); // Filter only 5-star artifacts
@@ -46,7 +46,7 @@ artifacts.forEach((name) => {
 
 // Generate training digit set
 const digits = [];
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 50; i++) {
   const value = Math.floor(Math.random() * 1000) / 10;
   const rand = Math.random() < 0.5;
   if (rand) {
@@ -62,7 +62,21 @@ const texts = [].concat(
   artifactData.names,
   artifactData.stats
 );
-const uniChr = new Set(); // Generate unichr
+const uniChr = new Set([
+  "0",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "+",
+  ".",
+  "%",
+]); // Generate unichr
 texts.forEach((text) => text.split("").forEach((chr) => uniChr.add(chr)));
 
 const statLength = artifactData.stats.length;
@@ -72,6 +86,11 @@ for (let i = 0; i < textLength; i++) {
   const randValue = Math.floor(Math.random() * digitLength);
   texts.push(artifactData.stats[randStat] + digits[randValue]);
 }
+
+// 모든 char가 다 들어있는지 검증
+const saveStr = texts.join("\n");
+if ([...uniChr].some((w) => saveStr.indexOf(w) == -1))
+  throw new Error("다시 만들어!");
 
 fs.writeFile(
   pa.join(__dirname, "/train/trainingText.txt"),
