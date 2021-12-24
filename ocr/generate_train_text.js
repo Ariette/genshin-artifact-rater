@@ -10,14 +10,7 @@ const artifactData = {
     "공간의 성배",
     "이성의 왕관",
   ],
-  stats: [
-    "치명타 확률",
-    "치명타 피해",
-    "공격력",
-    "방어력",
-    "원소 충전 효율",
-    "원소 마스터리",
-    "HP",
+  mainOnlyStats: [
     "치유 보너스",
     "바람 원소 피해 보너스",
     "바위 원소 피해 보너스",
@@ -26,6 +19,15 @@ const artifactData = {
     "얼음 원소 피해 보너스",
     "번개 원소 피해 보너스",
     "풀 원소 피해 보너스",
+  ],
+  stats: [
+    "치명타 확률",
+    "치명타 피해",
+    "공격력",
+    "방어력",
+    "원소 충전 효율",
+    "원소 마스터리",
+    "HP",
   ],
   names: [],
 };
@@ -60,6 +62,7 @@ for (let i = 0; i < 50; i++) {
 const texts = [].concat(
   artifactData.types,
   artifactData.names,
+  artifactData.mainOnlyStats,
   artifactData.stats
 );
 const uniChr = new Set([
