@@ -39,3 +39,4 @@ yarn-error.log*
 # custom
 /public/files/maps/**/*.png
 tesseract
+best_accuracy.pth
