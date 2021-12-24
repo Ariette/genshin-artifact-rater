@@ -34,6 +34,7 @@ class Model(nn.Module):
         self.AdaptiveAvgPool = nn.AdaptiveAvgPool2d((None, 1))
 
         """ Sequence modeling"""
+        self.SequenceModeling = nn.Linear(self.FeatureExtraction_output, num_class)
         self.SequenceModeling_output = self.FeatureExtraction_output
 
         """ Prediction """
@@ -47,7 +48,7 @@ class Model(nn.Module):
         visual_feature = visual_feature.squeeze(3)
 
         """ Sequence modeling stage """
-        contextual_feature = self.SequenceModeling(visual_feature)
+        contextual_feature = visual_feature  # for convenience. this is NOT contextually modeled by BiLSTM
 
         """ Prediction stage """
         prediction = self.Prediction(contextual_feature.contiguous())
